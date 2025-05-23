@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TechEcomNexus AI Product Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f9fc;
+      margin: 0;
+      padding: 20px;
+      color: #000a59;
+    }
+
+    h1 {
+      text-align: center;
+      color: #000a59;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .product-list, .recommendations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      border: 2px solid #d2eaf7;
+      border-radius: 10px;
+      padding: 15px;
+      width: 200px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      border-color: #9694ff;
+    }
+
+    .card button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #9694ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛒 TechEcomNexus: AI Product Recommendation Demo</h1>
+
+    <div class="section">
+      <h2>Select a Product</h2>
+      <div class="product-list" id="product-list"></div>
+    </div>
+
+    <div class="section">
+      <h2>Recommended for You</h2>
+      <div class="recommendations" id="recommendations">
+        <p style="width: 100%; text-align: center;">Select a product to see suggestions.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { id: 'p1', name: 'Smartphone X100', price: 699 },
+      { id: 'p2', name: 'Laptop Pro 15', price: 1299 },
+      { id: 'p3', name: 'Noise Cancelling Headphones', price: 199 },
+      { id: 'p4', name: '4K Smart TV', price: 899 },
+      { id: 'p5', name: 'Gaming Console Z', price: 499 },
+      { id: 'p6', name: 'Smartwatch S9', price: 249 },
+      { id: 'p7', name: 'Wireless Charger Pad', price: 49 },
+      { id: 'p8', name: 'Bluetooth Speaker Boom', price: 99 }
+    ];
+
+    function renderProducts() {
+      const list = document.getElementById('product-list');
+      products.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<h3>${p.name}</h3><p>Price: $${p.price}</p><button onclick="showRecommendations('${p.id}')">View</button>`;
+        list.appendChild(card);
+      });
+    }
+
+    function showRecommendations(selectedId) {
+      const recs = products.filter(p => p.id !== selectedId);
+      const shuffled = recs.sort(() => 0.5 - Math.random());
+      const recommendations = shuffled.slice(0, 3);
+
+      const recContainer = document.getElementById('recommendations');
+      recContainer.innerHTML = '';
+      recommendations.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<h3>${p.name}</h3><p>Price: $${p.price}</p><small>AI Suggestion</small>`;
+        recContainer.appendChild(card);
+      });
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>
